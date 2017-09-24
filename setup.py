@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='python-blocks',
-    version='0.0.1',
+    version='0.0.2',
     description='python-blocks, small reusable code blocks',
     long_description=open('README.md').read(),
     author='Ruslan Zhenetl',
