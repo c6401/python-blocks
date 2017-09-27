@@ -1,3 +1,4 @@
+from functools import partial
 from operator import getitem, setitem
 from typing import NamedTuple
 
@@ -28,14 +29,8 @@ class Field(NamedTuple):
             self.setter(instance, self.source, value)
 
 
-class Item(Field):
-    getter = getitem
-    setter = setitem
-
-
-class Attr(Field):
-    getter = getattr
-    setter = setattr
+item = partial(Field, getter=getitem, setter=setitem)
+attr = partial(Field, getter=getattr, setter=setattr)
 
 
 class Map:
