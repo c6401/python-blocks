@@ -34,7 +34,7 @@ attr = partial(Field, getter=getattr, setter=setattr)
 
 
 class Map:
-    def __init__(self, _default=Item, **fields):
+    def __init__(self, _default=item, **fields):
         self.fields = {
             name: _default(field) if isinstance(field, str) else field
             for name, field
