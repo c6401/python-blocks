@@ -21,3 +21,9 @@ def walk_json(
             for k, v
             in tree.items()
         })
+
+def group_by(iterable, key):
+    groups = {}
+    for item in iterable:
+        groups.setdefault(key(item), []).append(item)
+    return groups
