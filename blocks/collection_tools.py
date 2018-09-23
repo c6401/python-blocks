@@ -104,3 +104,37 @@ def weighted_choice(pairs):
     for item, position in zip(items, accumulate(weights)):
         if choice_position <= position:
             return item
+
+
+def _flat_dict(obj):
+    for k, v in obj.items():
+        for row in flat(v):
+            yield (k, *row)
+
+
+def _flat_list(obj):
+    for i in obj:
+        yield from flat(i)
+
+
+def _flat_tuple(obj):
+    if len(obj) == 1:
+        yield from flat(obj[0])
+    elif len(obj) > 1:
+        for irow in flat(obj[0]):
+            for jrow in flat(obj[1:]):
+                yield (*irow, *jrow)
+
+
+def _flat_primitive(obj):
+    yield (obj,)
+
+
+_flatteners = {
+    dict: _flat_dict, list: _flat_list, tuple: _flat_tuple,
+    str: _flat_primitive, bool: _flat_primitive, int: _flat_primitive,
+}
+
+
+def flat(obj):
+    yield from _flatteners[type(obj)](obj)
