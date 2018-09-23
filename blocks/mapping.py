@@ -1,22 +1,22 @@
 from functools import partial
 from operator import getitem, setitem
-from typing import NamedTuple
+from typing import Any, Callable, NamedTuple, Optional
 
 
 class Field(NamedTuple):
-    source: str = None
-    field: 'Field' = None
-    getter: callable = None
-    setter: callable = None
-    loader: callable = lambda x: x
-    dumper: callable = lambda x: x
-    
+    source: Optional[str] = None
+    field: Optional['Field'] = None
+    getter: Optional[Callable] = None
+    setter: Optional[Callable] = None
+    loader: Callable = lambda x: x
+    dumper: Callable = lambda x: x
+
     def load(self, instance):
         result = self.getter(instance, self.source)
         if self.field:
             result = self.field.load(result)
         return self.loader(result)
-    
+
     def dump(self, instance, value):
         value = self.dumper(value)
 
