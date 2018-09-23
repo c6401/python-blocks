@@ -138,3 +138,12 @@ _flatteners = {
 
 def flat(obj):
     yield from _flatteners[type(obj)](obj)
+
+
+def distinct(seq):
+    seen = set()
+    for item in seq:
+        if item in seen:
+            continue
+        yield item
+        seen.add(item)
